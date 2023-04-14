@@ -168,7 +168,7 @@
       let valor = inputNumber.value
       let link = '{{ url_for("verificar", numero = "") }}'
 
-      if (valor == '' || valor > 600 || valor < 1){}
+      if (valor == '' || valor > 600 || valor < 1){}else{
       
       fetch(link+valor).then(resp => resp.json()).then(resp =>{
 
@@ -184,7 +184,7 @@
           })
         }
       })
-      
+      }
       
 
       reloadInput(1)
