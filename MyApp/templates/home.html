@@ -118,7 +118,9 @@
   <dialog id="listaDeNumeros">
     <table border="1">
       <thead>
-        <th>lista já verificadas</th>
+        <th>Nª verificados</th>
+
+        <th>Horário de Verificação</th>
       </thead>
       <tbody>
       </tbody>
@@ -178,7 +180,7 @@
           list.innerHTML = ''
           let l = resp.lista
           l.forEach((v)=>{
-            list.innerHTML += `<tr><td>${v[0]}</td></tr>`
+            list.innerHTML += `<tr><td>${v[0]}</td><td>${v[1]}</td></tr>`
           })
         }
       })
