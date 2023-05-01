@@ -116,6 +116,7 @@
   </main>
 
   <dialog id="listaDeNumeros">
+    <h4 style="color:black; font-size: 1rem;" id="tot"></h4>
     <table border="1">
       <thead>
         <th>Nª verificados</th>
@@ -164,8 +165,26 @@
       modal.close()
     }
 
-   
-    
+    var attLista = ()=>{
+      fetch('{{ url_for("verificar", numero = "j") }}').then(resp => resp.json()).then(resp =>{
+        if (resp.result == false){
+        }else{
+          
+          list = document.querySelector('table tbody')
+          list.innerHTML = ''
+          let l = resp.lista
+          l.sort(function(a,b){
+            return a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0;
+          })
+          let t = 0
+          l.forEach((v,i)=>{
+            list.innerHTML += `<tr><td>${v[0]}</td><td>${v[1]}</td></tr>`
+            t = i
+          })
+          tot.innerHTML = t
+        }
+      })
+    }
     attLista()
 
     validar.addEventListener('click', ()=>{
@@ -174,6 +193,11 @@
 
       if (valor == '' || valor > 600 || valor < 1){}
       else{
+        if(valor < 10){
+          valor = `00${valor}`
+        }else if(valor > 10 && valor < 100){
+          valor = `0${valor}`
+        }else{}
         fetch(link+valor).then(resp => resp.json()).then(resp =>{
           if (resp.result == false){
             abrirModal('modalBreack')
@@ -185,7 +209,6 @@
             l.forEach((v)=>{
               list.innerHTML += `<tr><td>${v[0]}</td><td>${v[1]}</td></tr>`
             })
-            alert(l.lenght)
           }
         })
       }

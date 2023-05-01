@@ -5,13 +5,12 @@ from datetime import datetime
 
 @app.route('/')
 def home():
-    lista = db.collection('lista').stream()
-    print(len(lista))
+    eventos = db.collection('teste').stream()
     return render_template('home.html')
 
 @app.route('/verificar/<numero>')
 def verificar(numero):
-    lista = db.collection('lista').stream()
+    lista = db.collection('teste').stream()
     list = []
     result = True
     for i, iten in enumerate(lista):
@@ -24,9 +23,9 @@ def verificar(numero):
         except:
             pass
 
-    if result:
+    if result and numero != 'j':
         data = {'numero': numero, 'hora': str(datetime.now().strftime('%H:%M:%S'))}
         list.append((numero, data['hora']))
-        db.collection('lista').document(numero).set(data)
+        db.collection('teste').document(numero).set(data)
 
     return {'lista': list, 'result': result}
