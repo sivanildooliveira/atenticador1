@@ -5,6 +5,8 @@ from datetime import datetime
 
 @app.route('/')
 def home():
+    lista = db.collection('lista').stream()
+    print(len(lista))
     return render_template('home.html')
 
 @app.route('/verificar/<numero>')

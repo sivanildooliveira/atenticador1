@@ -164,26 +164,30 @@
       modal.close()
     }
 
+   
+    
+    attLista()
+
     validar.addEventListener('click', ()=>{
       let valor = inputNumber.value
       let link = '{{ url_for("verificar", numero = "") }}'
 
-      if (valor == '' || valor > 600 || valor < 1){}else{
-      
-      fetch(link+valor).then(resp => resp.json()).then(resp =>{
-
-        if (resp.result == false){
-          abrirModal('modalBreack')
-        }else{
-          abrirModal('modalPass')
-          list = document.querySelector('table tbody')
-          list.innerHTML = ''
-          let l = resp.lista
-          l.forEach((v)=>{
-            list.innerHTML += `<tr><td>${v[0]}</td><td>${v[1]}</td></tr>`
-          })
-        }
-      })
+      if (valor == '' || valor > 600 || valor < 1){}
+      else{
+        fetch(link+valor).then(resp => resp.json()).then(resp =>{
+          if (resp.result == false){
+            abrirModal('modalBreack')
+          }else{
+            abrirModal('modalPass')
+            list = document.querySelector('table tbody')
+            list.innerHTML = ''
+            let l = resp.lista
+            l.forEach((v)=>{
+              list.innerHTML += `<tr><td>${v[0]}</td><td>${v[1]}</td></tr>`
+            })
+            alert(l.lenght)
+          }
+        })
       }
       
 
